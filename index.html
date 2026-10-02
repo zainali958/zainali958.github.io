@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Syed Zain Ali | AI Developer</title>
+<meta name="description" content="Syed Zain Ali builds AI and full-stack projects: retrieval-augmented generation, computer vision, text classification, and web and mobile apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f8fc;
+  --surface: #ffffff;
+  --surface-2: #eef0fa;
+  --ink: #0f172a;
+  --muted: #576079;
+  --line: #e1e5f0;
+  --accent: #4338ca;
+  --accent-soft: #e8e9fc;
+  --on-accent: #ffffff;
+  --ok: #0f766e;
+  --shadow: 0 1px 2px rgba(15,23,42,.05), 0 8px 24px rgba(15,23,42,.06);
+  --display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0f1f; --surface: #121a33; --surface-2: #19234a;
+    --ink: #e9edfb; --muted: #9aa5c4; --line: #243055;
+    --accent: #a5adff; --accent-soft: #1d2650; --on-accent: #0a0f1f;
+    --ok: #5eead4; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a0f1f; --surface: #121a33; --surface-2: #19234a;
+  --ink: #e9edfb; --muted: #9aa5c4; --line: #243055;
+  --accent: #a5adff; --accent-soft: #1d2650; --on-accent: #0a0f1f;
+  --ok: #5eead4; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 5rem); }
+html.locked { overflow: hidden; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* header */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; align-items: center; gap: .7rem; color: var(--ink); text-decoration: none; font-family: var(--display); font-weight: 600; }
+.mono { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); font-size: .85rem; font-weight: 700; }
+.links { display: flex; align-items: center; gap: 1.5rem; }
+.links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: .95rem; }
+.links a:hover { color: var(--ink); }
+.toggle { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.toggle svg { width: 18px; height: 18px; }
+
+/* hero */
+.hero { padding: 5.5rem 0 4.5rem; }
+.pill { display: inline-flex; align-items: center; gap: .55rem; padding: .4rem .9rem .4rem .7rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: .9rem; color: var(--muted); text-decoration: none; margin-bottom: 1.75rem; }
+.pill:hover { border-color: var(--accent); color: var(--ink); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.hero h1 { font-family: var(--display); font-weight: 700; letter-spacing: -.03em; line-height: 1.07; font-size: clamp(2.3rem, 6.2vw, 4rem); margin: 0 0 1.4rem; max-width: 18ch; }
+.hero .lead { max-width: 58ch; font-size: 1.2rem; color: var(--muted); margin: 0 0 2.25rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+.btn { display: inline-flex; align-items: center; gap: .55rem; padding: .8rem 1.3rem; border-radius: 12px; font-family: var(--body); font-weight: 600; font-size: 1rem; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--on-accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); }
+.btn svg { width: 18px; height: 18px; }
+.facts { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.facts div { min-width: 120px; }
+.facts strong { display: block; font-family: var(--display); font-size: 1.7rem; font-weight: 600; letter-spacing: -.02em; }
+.facts span { color: var(--muted); font-size: .95rem; }
+
+/* sections */
+.section { padding: 4.5rem 0; }
+.section.alt { background: var(--surface); border-block: 1px solid var(--line); }
+.head { margin-bottom: 2rem; max-width: 60ch; }
+.head h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.3rem); letter-spacing: -.02em; line-height: 1.15; margin: 0 0 .6rem; }
+.head p { margin: 0; color: var(--muted); }
+
+/* featured */
+.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); padding: 2.25rem; display: grid; gap: 2rem; grid-template-columns: 1.05fr 1fr; }
+.feature h3 { font-family: var(--display); font-size: 1.65rem; letter-spacing: -.02em; line-height: 1.2; margin: .5rem 0 .8rem; }
+.feature p { margin: 0 0 1.1rem; color: var(--muted); }
+.badge { display: inline-block; font-size: .82rem; font-weight: 600; padding: .25rem .7rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+.tags li { font-size: .85rem; padding: .2rem .65rem; border-radius: 8px; background: var(--surface-2); color: var(--ink); }
+.feature .actions { margin-top: 1.5rem; }
+.flow { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; align-content: center; }
+.flow li { display: flex; align-items: center; gap: .9rem; padding: .75rem 1rem; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; font-size: .98rem; }
+.flow li b { font-family: var(--display); font-size: .8rem; width: 1.7rem; height: 1.7rem; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--accent-soft); color: var(--accent); }
+.flow li:last-child { border-color: var(--accent); }
+.flow small { display: block; color: var(--muted); font-size: .85rem; line-height: 1.35; }
+
+/* filters + cards */
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.5rem; }
+.chip { font-family: var(--body); font-size: .92rem; font-weight: 500; padding: .45rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
+.chip:hover { border-color: var(--accent); color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.25rem; }
+.card { position: relative; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; transition: border-color .2s; }
+.card:hover, .card:focus-within { border-color: var(--accent); }
+.kind { font-size: .85rem; font-weight: 600; color: var(--accent); margin-bottom: .6rem; }
+.card h3 { font-family: var(--display); font-size: 1.12rem; letter-spacing: -.01em; margin: 0 0 .55rem; line-height: 1.3; }
+.open { all: unset; cursor: pointer; }
+.open::after { content: ""; position: absolute; inset: 0; border-radius: 16px; }
+.open:focus-visible { outline: none; }
+.card:has(.open:focus-visible) { outline: 3px solid var(--accent); outline-offset: 3px; }
+.card p { margin: 0 0 1.25rem; color: var(--muted); font-size: 1rem; flex: 1; }
+.foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.foot .more { font-weight: 600; font-size: .95rem; color: var(--accent); }
+.foot a { position: relative; z-index: 2; font-weight: 600; font-size: .92rem; color: var(--muted); }
+.foot a:hover { color: var(--accent); }
+
+/* about */
+.about { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: start; }
+.about p { margin: 0 0 1rem; color: var(--muted); max-width: 56ch; }
+.skill { padding: 1.1rem 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; }
+.skill:first-child { padding-top: 0; }
+.skill h3 { font-family: var(--display); font-size: .98rem; margin: 0; }
+.skill p { margin: 0; color: var(--muted); }
+
+/* contact */
+.contact { text-align: center; background: var(--accent); color: var(--on-accent); border-radius: 24px; padding: 3.5rem 1.5rem; }
+.contact h2 { font-family: var(--display); font-size: clamp(1.7rem, 4vw, 2.3rem); letter-spacing: -.02em; margin: 0 0 .7rem; }
+.contact p { margin: 0 auto 1.75rem; max-width: 46ch; opacity: .9; }
+.contact .btn { background: var(--on-accent); color: var(--accent); }
+.contact a:focus-visible { outline-color: var(--on-accent); }
+
+footer { padding: 2rem 0 2.5rem; color: var(--muted); font-size: .92rem; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1.5rem; }
+
+/* project detail dialog */
+dialog.detail { padding: 0; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--ink); width: min(720px, calc(100% - 1.5rem)); max-height: calc(100dvh - 2rem); box-shadow: 0 24px 80px rgba(0,0,0,.35); overflow: auto; }
+dialog.detail::backdrop { background: rgba(8,12,28,.62); backdrop-filter: blur(3px); }
+.box { padding: 2rem 2rem 1.75rem; }
+.box .top { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; padding-right: 3rem; }
+.box h2 { font-family: var(--display); font-size: clamp(1.45rem, 4vw, 1.9rem); letter-spacing: -.02em; line-height: 1.2; margin: 0 0 .9rem; padding-right: 2.5rem; }
+.box .summary { margin: 0 0 1.5rem; color: var(--muted); font-size: 1.05rem; }
+.box h3 { font-family: var(--display); font-size: .98rem; margin: 0 0 .6rem; }
+.box ul.points { margin: 0 0 1.5rem; padding-left: 1.15rem; }
+.box ul.points li { margin: .35rem 0; }
+.box .note { margin: 0 0 1.5rem; padding: .85rem 1rem; border-radius: 12px; background: var(--surface-2); font-size: .96rem; color: var(--muted); }
+.box .tags { margin-bottom: 1.75rem; }
+.box .actions { padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.x { position: absolute; top: 1rem; right: 1rem; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.x:hover { border-color: var(--accent); }
+.x svg { width: 18px; height: 18px; }
+
+@media (max-width: 820px) {
+  .feature { grid-template-columns: 1fr; padding: 1.5rem; }
+  .about { grid-template-columns: 1fr; gap: 2rem; }
+  .links a.hide-sm { display: none; }
+}
+@media (max-width: 520px) {
+  .hero { padding: 3.25rem 0 3rem; }
+  .skill { grid-template-columns: 1fr; gap: .15rem; }
+  .facts { gap: 1.5rem 2rem; }
+  .box { padding: 1.5rem 1.25rem 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Syed Zain Ali, back to top">
+      <span class="mono" aria-hidden="true">ZA</span>
+      <span>Syed Zain Ali</span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a class="hide-sm" href="#featured">Featured</a>
+      <a class="hide-sm" href="#projects">Projects</a>
+      <a class="hide-sm" href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="toggle" id="theme" type="button" aria-label="Switch between light and dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero">
+    <a class="pill" href="#featured"><span class="dot" aria-hidden="true"></span>Currently building MedRAG, a medical guidelines assistant</a>
+    <h1>AI developer building systems you can verify.</h1>
+    <p class="lead">I build AI and full-stack projects: retrieval-augmented generation, computer vision, text classification, and web and mobile apps.</p>
+    <div class="actions">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn ghost" href="https://github.com/zainali958" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.3 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .4.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub profile
+      </a>
+    </div>
+    <div class="facts">
+      <div><strong>14</strong><span>public repositories</span></div>
+      <div><strong>7</strong><span>AI and machine learning projects</span></div>
+      <div><strong>2</strong><span>projects that handle Urdu text</span></div>
+    </div>
+  </section>
+
+  <section class="section alt" id="featured">
+    <div class="wrap">
+      <div class="head">
+        <h2>Featured project</h2>
+        <p>The project I'm putting the most work into right now.</p>
+      </div>
+      <article class="feature">
+        <div>
+          <span class="badge">In progress</span>
+          <h3>MedRAG: a medical guidelines assistant</h3>
+          <p>A local assistant that answers questions about public health guidelines in English and Urdu. Every answer cites the document and page it came from, and the assistant says so when the guidelines don't contain an answer.</p>
+          <p>It runs an open language model on the user's own machine, and retrieval quality is measured against a set of test questions rather than assumed.</p>
+          <ul class="tags" aria-label="Technologies">
+            <li>Python</li><li>FastAPI</li><li>ChromaDB</li><li>BM25</li><li>Ollama</li>
+          </ul>
+          <div class="actions">
+            <button class="btn primary" type="button" data-open="medrag">Read details</button>
+            <a class="btn ghost" href="https://github.com/zainali958/Medrag" target="_blank" rel="noopener">View code</a>
+          </div>
+        </div>
+        <ol class="flow" aria-label="How MedRAG answers a question">
+          <li><b>1</b><div>Guideline PDFs<small>Parsed and split into passages</small></div></li>
+          <li><b>2</b><div>Hybrid search<small>Keyword and meaning-based, merged</small></div></li>
+          <li><b>3</b><div>Reranker<small>Keeps the five best passages</small></div></li>
+          <li><b>4</b><div>Local language model<small>Answers only from those passages</small></div></li>
+          <li><b>5</b><div>Cited answer<small>Document and page for each claim</small></div></li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="head">
+        <h2>Projects</h2>
+        <p>Select a project to see what it does, how it's built, and a link to the code.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects by area"></div>
+      <div class="grid" id="grid"></div>
+      <noscript><p>Turn on JavaScript to browse projects, or see them all on <a href="https://github.com/zainali958?tab=repositories">GitHub</a>.</p></noscript>
+    </div>
+  </section>
+
+  <section class="section alt" id="about">
+    <div class="wrap about">
+      <div>
+        <div class="head" style="margin-bottom:1.25rem"><h2>About</h2></div>
+        <p>I'm Syed Zain Ali. I learn by building, and my projects have grown from small Python programs into AI systems, web apps and mobile apps.</p>
+        <p>My current focus is retrieval-augmented generation (RAG) for medical information in English and Urdu, where every answer has to be traceable to a source.</p>
+      </div>
+      <div>
+        <div class="skill"><h3>Languages</h3><p>Python, TypeScript, JavaScript</p></div>
+        <div class="skill"><h3>AI and ML</h3><p>RAG, LLM tool use, computer vision, text classification</p></div>
+        <div class="skill"><h3>Web and mobile</h3><p>Next.js, React Native (Expo), FastAPI, MongoDB, Google Sheets API</p></div>
+        <div class="skill"><h3>Tools</h3><p>Git and GitHub, Ollama, Streamlit, ChromaDB, FAISS</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Want to see the code?</h2>
+        <p>Every project on this page is on my GitHub profile.</p>
+        <a class="btn" href="https://github.com/zainali958?tab=repositories" target="_blank" rel="noopener">Browse all repositories</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Syed Zain Ali</span>
+    <a href="https://github.com/zainali958" target="_blank" rel="noopener">github.com/zainali958</a>
+  </div>
+</footer>
+
+<dialog class="detail" id="detail" aria-labelledby="d-title">
+  <button class="x" id="d-close" type="button" aria-label="Close project details">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <div class="box">
+    <div class="top"><span class="badge" id="d-kind"></span><span class="badge" id="d-status" hidden></span></div>
+    <h2 id="d-title"></h2>
+    <p class="summary" id="d-summary"></p>
+    <h3>What it does</h3>
+    <ul class="points" id="d-points"></ul>
+    <p class="note" id="d-note" hidden></p>
+    <h3>Built with</h3>
+    <ul class="tags" id="d-stack"></ul>
+    <div class="actions">
+      <a class="btn primary" id="d-repo" href="#" target="_blank" rel="noopener">View code on GitHub</a>
+      <button class="btn ghost" id="d-close2" type="button">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var GH = "https://github.com/zainali958/";
+  var AREAS = [
+    { id: "all", label: "All" },
+    { id: "ai", label: "AI and ML" },
+    { id: "web", label: "Web apps" },
+    { id: "mobile", label: "Mobile apps" },
+    { id: "py", label: "Python programs" }
+  ];
+  var AREA_LABEL = { ai: "AI and ML", web: "Web app", mobile: "Mobile app", py: "Python program" };
+
+  var P = [
+    { id: "medrag", area: "ai", name: "MedRAG: medical guidelines assistant", repo: "Medrag", status: "In progress",
+      short: "A local assistant that answers questions about health guidelines in English and Urdu, with citations.",
+      summary: "A local, privacy-friendly retrieval-augmented generation system for public health guidelines. It answers only from the documents it is given and shows where each answer came from.",
+      points: [
+        "Answers cite the document and page, and the assistant says it could not find the answer when the guidelines don't contain one",
+        "Combines keyword search (BM25) with multilingual embeddings (BGE-M3), merges the rankings, then reranks with a cross-encoder",
+        "Runs an open model through Ollama on the user's own machine, so no data leaves it",
+        "Includes an evaluation script that compares search modes using hit@k and MRR",
+        "Exposes a FastAPI endpoint for asking questions"
+      ],
+      note: "Work in progress: the evaluation results are not published yet, and this is an educational project, not medical advice.",
+      stack: ["Python", "FastAPI", "ChromaDB", "BM25", "BGE-M3", "Ollama"] },
+
+    { id: "toolchat", area: "ai", name: "Tool-Use Chatbot", repo: "Tool-Use-Chatbot-",
+      short: "An LLM agent that decides when to call tools: weather, calculator, web search and a SQL database.",
+      summary: "An agent built on a local language model that decides when a question needs a tool, runs it, handles any errors, and answers from the results.",
+      points: [
+        "Four tools: weather, calculator, web search and a SQLite database",
+        "Streamlit interface that shows every tool call, plus a terminal chat mode",
+        "Safety built in: the calculator uses an allow-list instead of eval, and SQL is read-only, SELECT-only and capped at 50 rows",
+        "Tool errors go back to the model as text so it can retry, with a limit of six steps per turn",
+        "Unit tests, plus a 20-prompt evaluation that measures tool-selection accuracy and latency"
+      ],
+      stack: ["Python", "Ollama", "Streamlit", "SQLite", "pytest"] },
+
+    { id: "lookalike", area: "ai", name: "Fashion Visual Search (Lookalike)", repo: "Fashion-Visual-Search",
+      short: "Upload a product photo or type a description and find the closest matches in a catalog.",
+      summary: "A visual search engine for fashion products. Images and text are turned into CLIP embeddings, and FAISS finds the nearest items in the catalog.",
+      points: [
+        "Search by uploading an image or by typing a text description",
+        "FastAPI backend with separate image search, text search and health endpoints",
+        "React frontend with an upload box and a results grid",
+        "The catalog index is built offline on Google Colab, and the backend still starts cleanly and reports a clear message when no index exists yet"
+      ],
+      stack: ["Python", "FastAPI", "CLIP", "FAISS", "React"] },
+
+    { id: "skin", area: "ai", name: "Skin Disease Classifier", repo: "skin-disease-classifier",
+      short: "A transfer-learning CNN that classifies seven types of skin lesion from dermatoscopic images.",
+      summary: "An image classifier trained on the HAM10000 dataset, which has 10,015 dermatoscopic images across seven diagnostic classes.",
+      points: [
+        "Transfer learning with EfficientNetB0 in two phases: train the new head first, then fine-tune the top layers at a low learning rate",
+        "Handles a heavily imbalanced dataset with class weights and data augmentation",
+        "Evaluated per class with a confusion matrix, classification report and ROC-AUC, since overall accuracy alone would be misleading",
+        "Includes a Gradio demo app planned for free deployment on Hugging Face Spaces"
+      ],
+      note: "An educational project. It is not a diagnostic tool.",
+      stack: ["Python", "TensorFlow / Keras", "scikit-learn", "Gradio"] },
+
+    { id: "yolo", area: "ai", name: "Object Detection System", repo: "Object-Detection-System",
+      short: "Detects objects in uploaded video or a live webcam feed and draws bounding boxes.",
+      summary: "A Streamlit app that runs YOLOv8 object detection locally on video files or a live webcam stream.",
+      points: [
+        "Works on uploaded videos (mp4, avi, mov, mkv) or a live webcam",
+        "Sidebar controls for model size, confidence threshold and filtering to specific object classes",
+        "Shows live bounding boxes and an object count panel",
+        "Detects the 80 COCO classes out of the box, and everything runs locally with no API keys"
+      ],
+      stack: ["Python", "YOLOv8", "Streamlit"] },
+
+    { id: "feedback", area: "ai", name: "Student Feedback Classifier", repo: "Feedback_classfier",
+      short: "Classifies course feedback by sentiment and topic, in English, Urdu and Roman Urdu.",
+      summary: "A natural-language-processing system that reads student course feedback and labels both how the student feels and what they are talking about.",
+      points: [
+        "Sentiment: positive, negative or neutral. Topic: content, instructor, pace or technical",
+        "Handles mixed-language text, including English, Urdu script and Roman Urdu in the same sentence",
+        "Uses TF-IDF with logistic regression, chosen because it works on small datasets, trains in seconds and shows which words drive each prediction",
+        "Trained on a synthetic dataset of 43 labeled examples"
+      ],
+      stack: ["Python", "scikit-learn", "TF-IDF", "Logistic regression"] },
+
+    { id: "spam", area: "ai", name: "Spam Email Classifier", repo: "Spam-Email-Classifier",
+      short: "A spam detection project with a labeled dataset and a Python script.",
+      summary: "An early machine learning project that classifies emails as spam or not spam.",
+      points: [
+        "Includes the labeled dataset (Spam Detection.csv) and a Python script for the classifier"
+      ],
+      note: "This repository doesn't have a full README yet.",
+      stack: ["Python"] },
+
+    { id: "hr", area: "web", name: "HR Portal System", repo: "HR-Portal-System",
+      short: "The backend foundation for an HR portal with companies, roles, users and secure login.",
+      summary: "The first layer of an HR portal: companies, roles, users and authentication, built so that later features can rely on it.",
+      points: [
+        "Companies and roles are stored as data, so adding a company is a data change and not a code change",
+        "Roles carry permission flags such as who can approve or create users, and business logic checks the flags instead of hardcoded role names",
+        "Accounts are created only by HR, with no public sign-up, and passwords are hashed with bcrypt",
+        "JWT login, with access scoping enforced on the server so managers only see their own company"
+      ],
+      note: "Foundation stage: offer workflows, onboarding, an audit log and Google Sheets sync are planned next.",
+      stack: ["Node.js", "MongoDB", "JWT", "bcrypt"] },
+
+    { id: "attendance-next", area: "web", name: "Attendance System (Next.js)", repo: "attendance-system-nextjs",
+      short: "An employee attendance and leave system with an admin panel and analytics, using Google Sheets as the database.",
+      summary: "A Next.js and TypeScript port of an earlier Flask attendance system. It keeps the same data model and password format, so existing logins keep working.",
+      points: [
+        "Employee login with device binding, check-in and check-out, and automatic working-hours calculation",
+        "Employee dashboard with 30-day history and leave requests, plus an approval workflow",
+        "Admin panel for user management, CSV import, attendance editing, and CSV and DOCX export",
+        "Analytics dashboard with attendance trends, department comparison and punctuality, over 7, 30 or 90 days",
+        "Uses Google Sheets as the database"
+      ],
+      stack: ["Next.js", "TypeScript", "Google Sheets API"] },
+
+    { id: "attendance", area: "web", name: "Attendance System (original version)", repo: "attendance-system",
+      short: "The earlier version of the attendance system, before the Next.js rewrite.",
+      summary: "The first version of the attendance system. The Next.js project above is its port with the same features.",
+      points: [
+        "See the Next.js version for the full feature list"
+      ],
+      note: "This repository doesn't have a README yet.",
+      stack: ["HTML"] },
+
+    { id: "klicko", area: "mobile", name: "Klicko: e-commerce app", repo: "MAD-project-App-Klicko",
+      short: "A luxury fashion shopping app for buyers and sellers, built with React Native.",
+      summary: "A full e-commerce mobile app built with React Native and Expo, where buyers shop and sellers manage products.",
+      points: [
+        "Sign up and login with JWT, with a choice of buyer or seller role",
+        "Product catalog in a grid, with category filtering and search by name or description",
+        "Product details, shopping cart with quantity updates, and checkout with shipping details",
+        "Profile screen and secure logout, with the token stored on the device",
+        "Talks to a backend API deployed on Vercel"
+      ],
+      stack: ["React Native", "Expo", "TypeScript", "React Navigation", "Axios"] },
+
+    { id: "restaurant", area: "mobile", name: "Restaurant App MVP", repo: "restaurant-app-mvp",
+      short: "Browse menus, reserve tables and pre-order food, with tools for restaurant managers.",
+      summary: "A React Native app with two sides: customers who browse and order, and managers who run the restaurant's digital operations.",
+      points: [
+        "Customers browse nearby restaurants and menus with daily specials, check table availability, reserve with pre-ordering and track order status",
+        "Managers update the restaurant profile and menu, set daily specials, manage reservations and orders, and update preparation status",
+        "State handled with React Context, with an optional Node.js and MongoDB backend"
+      ],
+      stack: ["React Native", "Expo", "React Navigation", "React Native Paper", "MongoDB"] },
+
+    { id: "movies", area: "py", name: "Movies Recommendation Program", repo: "Movies-Recommendation-Program",
+      short: "Recommends movies from a JSON file based on the user's favorite genre.",
+      summary: "A simple script that reads movie data, asks for a favorite genre and lists matching movies.",
+      points: [
+        "Reads a JSON file with each movie's title, genres, IMDb rating and director",
+        "Loads the data into a pandas DataFrame and filters by the genre the user types",
+        "Ideas for extending it: filtering by rating or director, and saving the results to a file"
+      ],
+      stack: ["Python", "pandas", "JSON"] },
+
+    { id: "todo", area: "py", name: "To-Do List with JSON storage", repo: "To-Do-List-program-using-json-file-concept",
+      short: "A to-do list program that keeps its tasks in a JSON file.",
+      summary: "One of my first Python programs: a task manager that saves everything to a JSON file on disk.",
+      points: [
+        "Seven functions: add, delete, update, mark complete, load, save and display tasks"
+      ],
+      stack: ["Python", "JSON"] }
+  ];
+
+  var byId = {};
+  P.forEach(function (p) { byId[p.id] = p; });
+
+  var grid = document.getElementById("grid");
+  var filters = document.getElementById("filters");
+  var current = "all";
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function renderFilters() {
+    filters.textContent = "";
+    AREAS.forEach(function (a) {
+      var count = a.id === "all" ? P.length - 1 : P.filter(function (p) { return p.area === a.id && p.id !== "medrag"; }).length;
+      var b = el("button", "chip", a.label + " (" + count + ")");
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(a.id === current));
+      b.addEventListener("click", function () { current = a.id; renderFilters(); renderGrid(); });
+      filters.appendChild(b);
+    });
+  }
+
+  function renderGrid() {
+    grid.textContent = "";
+    P.filter(function (p) { return p.id !== "medrag" && (current === "all" || p.area === current); }).forEach(function (p) {
+      var card = el("article", "card");
+      card.appendChild(el("div", "kind", AREA_LABEL[p.area]));
+      var h = el("h3");
+      var open = el("button", "open", p.name);
+      open.type = "button";
+      open.setAttribute("data-open", p.id);
+      open.setAttribute("aria-haspopup", "dialog");
+      h.appendChild(open);
+      card.appendChild(h);
+      card.appendChild(el("p", "", p.short));
+      var foot = el("div", "foot");
+      foot.appendChild(el("span", "more", "View details"));
+      var a = el("a", "", "Code");
+      a.href = GH + p.repo;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.setAttribute("aria-label", "Open " + p.name + " on GitHub");
+      foot.appendChild(a);
+      card.appendChild(foot);
+      grid.appendChild(card);
+    });
+  }
+
+  /* detail dialog */
+  var dlg = document.getElementById("detail");
+  var lastOpener = null;
+
+  function openDetail(id, opener) {
+    var p = byId[id];
+    if (!p) return;
+    lastOpener = opener || null;
+    document.getElementById("d-kind").textContent = AREA_LABEL[p.area];
+    var st = document.getElementById("d-status");
+    if (p.status) { st.textContent = p.status; st.hidden = false; } else { st.hidden = true; }
+    document.getElementById("d-title").textContent = p.name;
+    document.getElementById("d-summary").textContent = p.summary;
+    var pts = document.getElementById("d-points");
+    pts.textContent = "";
+    p.points.forEach(function (t) { pts.appendChild(el("li", "", t)); });
+    var note = document.getElementById("d-note");
+    if (p.note) { note.textContent = p.note; note.hidden = false; } else { note.hidden = true; }
+    var stack = document.getElementById("d-stack");
+    stack.textContent = "";
+    p.stack.forEach(function (t) { stack.appendChild(el("li", "", t)); });
+    document.getElementById("d-repo").href = GH + p.repo;
+    document.documentElement.classList.add("locked");
+    if (typeof dlg.showModal === "function") { dlg.showModal(); } else { dlg.setAttribute("open", ""); }
+    dlg.scrollTop = 0;
+  }
+
+  function closeDetail() {
+    if (typeof dlg.close === "function") { dlg.close(); } else { dlg.removeAttribute("open"); }
+  }
+
+  dlg.addEventListener("close", function () {
+    document.documentElement.classList.remove("locked");
+    if (lastOpener && lastOpener.focus) { lastOpener.focus(); }
+  });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) closeDetail(); });
+  document.getElementById("d-close").addEventListener("click", closeDetail);
+  document.getElementById("d-close2").addEventListener("click", closeDetail);
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("[data-open]") : null;
+    if (t) { openDetail(t.getAttribute("data-open"), t); }
+  });
+
+  renderFilters();
+  renderGrid();
+
+  /* theme */
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    if (!cur) { cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; }
+    var next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
